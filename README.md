@@ -1,72 +1,90 @@
-# Manish Interior Decorators Web Platform
+# Manish Interior
 
-React + Vite frontend with an Express API backend for leads, authentication, and CMS modules.
+Premium interior design platform built with React, Vite, Tailwind CSS, and an Express API backend.
 
-## What is included
+## Overview
 
-- Multi-page React app using route navigation.
-- Lead capture forms connected to backend API.
-- Admin login and lead pipeline status management.
-- CMS sections for projects, testimonials, and blogs.
-- JSON-based local data store for quick development.
+This project includes:
 
-## Local setup
+- A polished public website with Home, Gallery, Design Styles, Packages, Calculator, Book, and Contact pages.
+- API-backed lead capture and consultation booking flows.
+- An admin area for authentication, leads, bookings, projects, and dashboard analytics.
+- Premium mock data fallbacks so the UI stays rich even when an API response is empty.
 
-1. Install dependencies:
+## Local Development
+
+Install dependencies first:
 
 ```bash
 npm install
 ```
 
-2. Start frontend and backend together:
+Run the frontend only:
+
+```bash
+npm run client:dev
+```
+
+Run the backend only:
+
+```bash
+npm run server
+```
+
+Run both together:
 
 ```bash
 npm run dev:all
 ```
 
-3. Or run independently:
+## Local URLs
 
-```bash
-npm run server:dev
-npm run dev
-```
+- Frontend: http://localhost:3002
+- Backend: http://localhost:5000
 
-Frontend URL: http://localhost:3000
+If a port is already in use, Vite will automatically try the next available port.
 
-Backend URL: http://localhost:4001/api
+## Main Routes
 
-## Demo admin credentials
+- `/` Home
+- `/gallery` Project gallery
+- `/styles` Design styles showcase
+- `/packages` Interior packages
+- `/calculator` Pricing calculator
+- `/book` Consultation booking
+- `/contact` Dedicated contact page
+- `/admin/login` Admin sign in
+- `/admin/dashboard` Admin overview
+
+## Demo Credentials
+
+Admin:
 
 - Email: admin@manishinteriors.in
 - Password: admin123
 
-## Demo client credentials
+Client:
 
 - Email: client@manishinteriors.in
 - Password: client123
 
-Client tracker route: `/client`
+## Useful API Endpoints
 
-## API endpoints
+- `POST /auth/login`
+- `GET /admin/dashboard`
+- `POST /leads`
+- `GET /leads`
+- `PATCH /leads/:id/status`
+- `POST /bookings`
+- `GET /bookings`
+- `GET /projects`
+- `POST /pricing/calculate`
 
-- `POST /api/auth/login`
-- `GET /api/auth/me`
-- `POST /api/leads`
-- `GET /api/leads` (admin)
-- `PATCH /api/leads/:id/status` (admin)
-- `GET /api/projects`
-- `POST /api/projects` (admin)
-- `PATCH /api/projects/:id/progress` (admin)
-- `POST /api/projects/:id/gallery` (admin)
-- `DELETE /api/projects/:id/gallery/:imageId` (admin)
-- `DELETE /api/projects/:id` (admin)
-- `GET /api/testimonials`
-- `POST /api/testimonials` (admin)
-- `DELETE /api/testimonials/:id` (admin)
-- `GET /api/blogs`
-- `POST /api/blogs` (admin)
-- `DELETE /api/blogs/:id` (admin)
+## Environment Variables
 
-## Environment variables
+Copy `.env.example` to `.env` and update values as needed.
 
-See `.env.example`.
+## Notes
+
+- The app uses mock data fallbacks for projects, services, packages, and design styles to keep the interface visually complete.
+- The current GitHub repository is set up with the `main` branch.
