@@ -1,0 +1,13 @@
+import Joi from 'joi';
+
+export const registerSchema = Joi.object({
+  name: Joi.string().trim().min(2).max(80).required(),
+  email: Joi.string().trim().lowercase().email().required(),
+  phone: Joi.string().trim().pattern(/^\+?[0-9]{7,15}$/).required(),
+  password: Joi.string().min(6).max(128).required(),
+});
+
+export const loginSchema = Joi.object({
+  email: Joi.string().trim().lowercase().email().required(),
+  password: Joi.string().min(6).max(128).required(),
+});

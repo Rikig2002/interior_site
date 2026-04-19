@@ -1,0 +1,83 @@
+{
+  "leads": [
+    {
+      "id": "LD-1001",
+      "name": "Test Lead",
+      "phone": "+91 99999 88888",
+      "location": "Pune",
+      "propertyType": "3BHK Apartment",
+      "budget": "12-20 lakh",
+      "timeline": "Within 2 months",
+      "message": "",
+      "source": "Smoke Test",
+      "status": "Contacted",
+      "createdAt": "2026-04-19"
+    }
+  ],
+  "projects": [
+    {
+      "id": "PRJ-1001",
+      "title": "Scandinavian 3BHK Makeover",
+      "location": "Pune",
+      "style": "Modern Minimal",
+      "budget": "12-18 lakh",
+      "duration": "9 weeks",
+      "clientEmail": "client@manishinteriors.in",
+      "status": "Final Touches",
+      "progress": 88,
+      "gallery": [
+        {
+          "id": "IMG-1001",
+          "stage": "before",
+          "imageUrl": "https://images.unsplash.com/photo-1493666438817-866a91353ca9?auto=format&fit=crop&w=1200&q=80",
+          "caption": "Original living room layout before renovation"
+        },
+        {
+          "id": "IMG-1002",
+          "stage": "after",
+          "imageUrl": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80",
+          "caption": "Final staged interior with premium finish"
+        }
+      ],
+      "milestones": [
+        {
+          "name": "Discovery Call",
+          "done": true
+        },
+        {
+          "name": "Site Visit",
+          "done": true
+        },
+        {
+          "name": "3D Design Approval",
+          "done": true
+        },
+        {
+          "name": "Execution",
+          "done": false
+        },
+        {
+          "name": "Handover",
+          "done": false
+        }
+      ]
+    }
+  ],
+  "testimonials": [
+    {
+      "id": "TST-1001",
+      "name": "Amit Kulkarni",
+      "rating": 5,
+      "message": "Professional execution and very transparent project handling."
+    }
+  ],
+  "blogs": [
+    {
+      "id": "BLG-1001",
+      "title": "7 Smart Ideas for Small Apartment Interiors",
+      "slug": "smart-ideas-small-apartment-interiors",
+      "excerpt": "Practical design choices to make compact homes look spacious and elegant.",
+      "publishedAt": "2026-04-01"
+    }
+  ]
+}
