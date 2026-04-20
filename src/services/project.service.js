@@ -194,8 +194,8 @@ export const getProjects = async (queryParams) => {
   const sortQuery = String(queryParams.sort || 'latest').toLowerCase();
   const sort = sortQuery === 'featured' ? { isFeatured: -1, createdAt: -1 } : { createdAt: -1 };
 
-  const [total, projects] = await Promise.all([
-    Project.countDocuments(filters),
+  const [totalResult, projectsResult] = await Promise.allSettled([
+    Project.countDocuments(filters).maxTimeMS(5000),
     Project.find(filters)
       .sort(sort)
       .skip(skip)
@@ -204,6 +204,13 @@ export const getProjects = async (queryParams) => {
       .populate('createdBy', 'name email role')
       .lean(),
   ]);
+
+  if (projectsResult.status !== 'fulfilled') {
+    throw projectsResult.reason;
+  }
+
+  const projects = projectsResult.value;
+  const total = totalResult.status === 'fulfilled' ? totalResult.value : projects.length;
 
   return {
     total,
