@@ -27,13 +27,13 @@ Option 3 - AWS (EC2/Elastic Beanstalk/ECS):
 let server;
 
 const startServer = async () => {
-  await connectDB();
-
   server = app.listen(env.port, () => {
     logger.info(`Server running on port ${env.port}`, {
       nodeEnv: env.nodeEnv,
     });
   });
+
+  await connectDB();
 };
 
 const shutdown = async (signal) => {
