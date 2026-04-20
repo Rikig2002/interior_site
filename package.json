@@ -12,7 +12,9 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "server": "node server/index.js",
-    "server:dev": "nodemon server/index.js"
+    "server:dev": "nodemon server/index.js",
+    "deploy:build": "npm run build",
+    "deploy:start": "npm start"
   },
   "dependencies": {
     "axios": "^1.15.0",

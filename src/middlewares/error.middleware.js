@@ -48,6 +48,8 @@ const errorHandler = (error, req, res, next) => {
   const statusCode = normalizedError.statusCode || 500;
   const message = normalizedError.message || 'Internal Server Error';
 
+  void next;
+
   logger.error('Request failed', {
     method: req.method,
     url: req.originalUrl,

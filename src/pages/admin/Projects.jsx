@@ -45,7 +45,32 @@ function Projects() {
   }
 
   useEffect(() => {
-    fetchProjects()
+    let isActive = true
+
+    const loadProjects = async () => {
+      try {
+        setLoading(true)
+        setError('')
+        const response = await api.get('/projects?limit=50')
+        if (!isActive) return
+
+        setRows(Array.isArray(response?.data?.data) ? response.data.data : [])
+      } catch (err) {
+        if (isActive) {
+          setError(err?.response?.data?.message || 'Unable to load projects.')
+        }
+      } finally {
+        if (isActive) {
+          setLoading(false)
+        }
+      }
+    }
+
+    void loadProjects()
+
+    return () => {
+      isActive = false
+    }
   }, [])
 
   const resetForm = () => {

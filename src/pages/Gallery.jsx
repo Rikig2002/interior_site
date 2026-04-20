@@ -2,12 +2,48 @@ import { useEffect, useMemo, useState } from 'react'
 import Filters from '../components/gallery/Filters'
 import GalleryGrid from '../components/gallery/GalleryGrid'
 import api from '../services/api'
-import { filterMockProjects } from '../utils/mockData'
+import { mockProjects } from '../utils/mockData'
 
 const initialFilters = {
   category: '',
   city: '',
   search: '',
+}
+
+const mergeWithMockProjects = (apiProjects = []) => {
+  const merged = new Map()
+
+  for (const project of mockProjects) {
+    const key = project.id || project.slug || `${project.title}-${project.city}`
+    merged.set(key, project)
+  }
+
+  for (const project of apiProjects) {
+    const key = project?._id || project?.id || project?.slug || `${project?.title || ''}-${project?.city || ''}`
+    if (!merged.has(key)) {
+      merged.set(key, project)
+    }
+  }
+
+  return Array.from(merged.values())
+}
+
+const filterProjects = (items, activeFilters) => {
+  const category = String(activeFilters.category || '').trim().toLowerCase()
+  const city = String(activeFilters.city || '').trim().toLowerCase()
+  const search = String(activeFilters.search || '').trim().toLowerCase()
+
+  return items.filter((project) => {
+    const matchesCategory = !category || String(project.category || '').toLowerCase() === category
+    const matchesCity = !city || String(project.city || '').toLowerCase() === city
+
+    const searchable = [project.title, project.city, project.category, ...(project.tags || [])]
+      .join(' ')
+      .toLowerCase()
+    const matchesSearch = !search || searchable.includes(search)
+
+    return matchesCategory && matchesCity && matchesSearch
+  })
 }
 
 function Gallery() {
@@ -43,22 +79,17 @@ function Gallery() {
         setIsLoading(true)
         setError('')
 
-        const endpoint = queryString ? `/projects?${queryString}` : '/projects'
-        const response = await api.get(endpoint)
+        const response = await api.get('/projects')
 
         if (isMounted) {
-          const projectList = Array.isArray(response?.data?.data) ? response.data.data : []
-          if (projectList.length) {
-            setProjects(projectList)
-            setIsMockSource(false)
-          } else {
-            setProjects(filterMockProjects(filters))
-            setIsMockSource(true)
-          }
+          const apiProjects = Array.isArray(response?.data?.data) ? response.data.data : []
+          const mergedProjects = mergeWithMockProjects(apiProjects)
+          setProjects(filterProjects(mergedProjects, filters))
+          setIsMockSource(true)
         }
-      } catch (requestError) {
+      } catch {
         if (isMounted) {
-          setProjects(filterMockProjects(filters))
+          setProjects(filterProjects(mockProjects, filters))
           setError('')
           setIsMockSource(true)
         }

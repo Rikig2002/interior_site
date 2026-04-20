@@ -1,0 +1,40 @@
+{
+  "name": "Manish Interior",
+  "short_name": "Manish Interior",
+  "description": "Premium interior design platform for projects, packages, and consultations.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "/icon-192.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "lifestyle", "productivity"],
+  "lang": "en-IN",
+  "dir": "ltr",
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "View Gallery",
+      "short_name": "Gallery",
+      "url": "/gallery"
+    },
+    {
+      "name": "Book Consultation",
+      "short_name": "Book",
+      "url": "/book"
+    }
+  ]
+}

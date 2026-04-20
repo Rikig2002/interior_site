@@ -40,6 +40,10 @@ function ProjectCard({ project }) {
             alt={title}
             loading="lazy"
             className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+            onError={(event) => {
+              event.currentTarget.onerror = null
+              event.currentTarget.src = fallbackImage
+            }}
           />
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/20 to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
           <div className="absolute left-3 top-3 rounded-full border border-white/40 bg-black/25 px-2.5 py-1 text-[0.68rem] font-medium uppercase tracking-wide text-white backdrop-blur-sm">

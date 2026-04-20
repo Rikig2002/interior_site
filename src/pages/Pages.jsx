@@ -2,13 +2,21 @@ import React from 'react'
 import {
   featureGroups,
   homepageTemplate,
+  blogPosts,
+  credentials,
+  designGallery,
+  guarantees,
   mvpPlan,
   pageLayouts,
   pricingPackages,
+  priceCalculators,
+  processSteps,
   roadmap,
   serviceDetails,
+  serviceOfferings,
   serviceTemplate,
   sitemap,
+  team,
   wireframes,
 } from '../data/siteData'
 
@@ -712,13 +720,10 @@ export function PriceCalculatorPage() {
   const [values, setValues] = React.useState({})
   const [estimate, setEstimate] = React.useState(null)
 
-  const { priceCalculators } = require('../data/livspaceFeatures')
-
   const calculateEstimate = () => {
-    // Simple calculation logic
     const tool = priceCalculators[selectedTool]
     const basePrice = parseInt(tool.startingPrice.replace(/,/g, ''))
-    const multiplier = Math.random() * 0.3 + 0.9 // 90-120% variation
+    const multiplier = selectedTool === 'fullHome' ? 1.1 : selectedTool === 'kitchen' ? 1.08 : 1.05
     const estimated = Math.round(basePrice * multiplier)
     setEstimate(estimated)
   }
@@ -792,7 +797,6 @@ export function PriceCalculatorPage() {
 
 export function GalleryPage() {
   const [selectedCategory, setSelectedCategory] = React.useState(null)
-  const { designGallery } = require('../data/livspaceFeatures')
 
   return (
     <section className="panel-grid">
@@ -838,8 +842,6 @@ export function GalleryPage() {
 }
 
 export function ProcessPage() {
-  const { processSteps } = require('../data/livspaceFeatures')
-
   return (
     <section className="panel-grid">
       <article className="card full-width">
@@ -874,8 +876,6 @@ export function ProcessPage() {
 }
 
 export function TeamPage() {
-  const { team, credentials } = require('../data/livspaceFeatures')
-
   return (
     <section className="panel-grid">
       <article className="card full-width">
@@ -931,8 +931,6 @@ export function TeamPage() {
 }
 
 export function BlogPage() {
-  const { blogPosts } = require('../data/livspaceFeatures')
-
   return (
     <section className="panel-grid">
       <article className="card full-width">
@@ -972,8 +970,6 @@ export function BlogPage() {
 }
 
 export function GuaranteesPage() {
-  const { guarantees, serviceOfferings } = require('../data/livspaceFeatures')
-
   return (
     <section className="panel-grid">
       <article className="card full-width">

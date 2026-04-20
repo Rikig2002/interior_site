@@ -12,7 +12,15 @@ function ImageGallery({ images = [], projectTitle = 'Project' }) {
   return (
     <section className="space-y-3">
       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-card">
-        <img src={activeImage} alt={projectTitle} className="h-[260px] w-full object-cover sm:h-[360px] lg:h-[460px]" />
+        <img
+          src={activeImage}
+          alt={projectTitle}
+          className="h-[260px] w-full object-cover sm:h-[360px] lg:h-[460px]"
+          onError={(event) => {
+            event.currentTarget.onerror = null
+            event.currentTarget.src = fallbackImage
+          }}
+        />
       </div>
 
       <div className="grid grid-cols-4 gap-2 sm:grid-cols-6 lg:grid-cols-7">
@@ -31,6 +39,10 @@ function ImageGallery({ images = [], projectTitle = 'Project' }) {
               alt={`${projectTitle} ${index + 1}`}
               loading="lazy"
               className="h-16 w-full object-cover sm:h-20"
+              onError={(event) => {
+                event.currentTarget.onerror = null
+                event.currentTarget.src = fallbackImage
+              }}
             />
           </button>
         ))}

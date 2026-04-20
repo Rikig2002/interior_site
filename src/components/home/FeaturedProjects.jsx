@@ -7,6 +7,24 @@ import Card from '../ui/Card'
 const fallbackImage =
   'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=80'
 
+const mergeWithMockProjects = (apiProjects = []) => {
+  const merged = new Map()
+
+  for (const project of mockProjects) {
+    const key = project.id || project.slug || `${project.title}-${project.city}`
+    merged.set(key, project)
+  }
+
+  for (const project of apiProjects) {
+    const key = project?._id || project?.id || project?.slug || `${project?.title || ''}-${project?.city || ''}`
+    if (!merged.has(key)) {
+      merged.set(key, project)
+    }
+  }
+
+  return Array.from(merged.values())
+}
+
 function FeaturedProjects() {
   const [projects, setProjects] = useState([])
   const [loading, setLoading] = useState(true)
@@ -24,17 +42,12 @@ function FeaturedProjects() {
 
         if (isMounted) {
           const list = Array.isArray(payload) ? payload : []
-          if (list.length) {
-            setProjects(list.slice(0, 6))
-            setIsMockSource(false)
-          } else {
-            setProjects(mockProjects.slice(0, 6))
-            setIsMockSource(true)
-          }
+          setProjects(mergeWithMockProjects(list))
+          setIsMockSource(true)
         }
-      } catch (requestError) {
+      } catch {
         if (isMounted) {
-          setProjects(mockProjects.slice(0, 6))
+          setProjects(mockProjects)
           setIsMockSource(true)
         }
       } finally {
@@ -91,6 +104,10 @@ function FeaturedProjects() {
                     alt={title}
                     className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                     loading="lazy"
+                    onError={(event) => {
+                      event.currentTarget.onerror = null
+                      event.currentTarget.src = fallbackImage
+                    }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/75 via-primary/25 to-transparent opacity-0 transition duration-300 group-hover:opacity-100" />
                   <div className="absolute bottom-0 left-0 right-0 translate-y-2 p-4 opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100">

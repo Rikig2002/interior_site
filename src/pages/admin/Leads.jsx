@@ -29,7 +29,35 @@ function Leads() {
   }
 
   useEffect(() => {
-    fetchLeads(1)
+    let isActive = true
+
+    const loadLeads = async () => {
+      try {
+        setLoading(true)
+        setError('')
+        const response = await api.get('/leads?page=1&limit=10')
+        if (!isActive) return
+
+        const payload = response?.data
+        setRows(Array.isArray(payload?.data) ? payload.data : [])
+        setPage(payload?.page || 1)
+        setPages(payload?.pages || 1)
+      } catch (err) {
+        if (isActive) {
+          setError(err?.response?.data?.message || 'Unable to load leads.')
+        }
+      } finally {
+        if (isActive) {
+          setLoading(false)
+        }
+      }
+    }
+
+    void loadLeads()
+
+    return () => {
+      isActive = false
+    }
   }, [])
 
   const handleStatusUpdate = async (leadId, status) => {
