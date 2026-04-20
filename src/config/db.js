@@ -40,12 +40,14 @@ const connectDB = async () => {
 
       if (attempt === env.dbConnectRetries) {
         logger.error('MongoDB connection failed after max retries');
-        process.exit(1);
+        return false;
       }
 
       await wait(env.dbRetryDelayMs);
     }
   }
+
+  return false;
 };
 
 export default connectDB;

@@ -33,7 +33,11 @@ const startServer = async () => {
     });
   });
 
-  await connectDB();
+  const isDatabaseConnected = await connectDB();
+
+  if (!isDatabaseConnected) {
+    logger.warn('MongoDB is not connected yet, but the HTTP server will stay up for health checks and retryable recovery.');
+  }
 };
 
 const shutdown = async (signal) => {
